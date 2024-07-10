@@ -1,11 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
+
 main(){
 	float a; //宣告浮點數變數a 
 	float b; //宣告浮點數變數b 
 	float c; //宣告浮點數變數c
 	scanf("%f%f%f",&a,&b,&c); //輸入變數a,b,c
-	float sum = sqrt((b*b)-(4*a*c)); //宣告變數sum為 √(b^2-4ac)
-	printf("(-%.2f + √(%.2f^2 - 4 * %.2f * %.2f)/2 * %.2f = %.2f\n",b,b,a,c,a,(-b+sum)/2*a); //輸出(-b+√(b^2-4ac))/2a
-	printf("(-%.2f - √(%.2f^2 - 4 * %.2f * %.2f)/2 * %.2f = %.2f\n",b,b,a,c,a,(-b-sum)/2*a); //輸出(-b-√(b^2-4ac))/2a
+	printf("x= %f or %f",(-b+(sqrt((b*b)-(4*a*c))))/(2*a),(-b-(sqrt((b*b)-(4*a*c))))/(2*a));//輸出(-b +- √(b^2-4ac))/2a
 }

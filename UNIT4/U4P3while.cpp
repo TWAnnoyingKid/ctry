@@ -2,7 +2,7 @@
 #include <stdlib.h> 
 
 main(){
-	int sum;
+	int sum=0;
 	int x=1;
 	while(x<=1024){
 		sum = sum + x;
