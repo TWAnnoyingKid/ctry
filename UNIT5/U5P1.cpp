@@ -10,6 +10,6 @@ main(){
 			default: printf("");
 		}
 	}
-	printf("%d\n", sum);
+	printf("公因數總和：%d\n", sum);
 }
 

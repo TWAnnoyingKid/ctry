@@ -9,5 +9,5 @@ main(){
 		b = a%b;
 		a = temp;
 	}
-	printf("%d\n",a);
+	printf("gcd= %d\n",a);
 }
