@@ -9,6 +9,7 @@ main(){
 		}
 	}
 	avg = avg/9;
+	printf("avg = %d\n\n",avg);
 	for(int i=0; i<3; i++){
 		for(int j=0; j<3; j++){
 			if(a[i][j] >= avg){
