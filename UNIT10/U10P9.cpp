@@ -7,13 +7,13 @@ struct string{
 typedef struct string STRING;
 
 int strComp(STRING a, STRING b){
-	for(int i=0; (a.str[i]!='\0')||(b.str[i]!='\0'); i++){
+	for(int i=0; (a.str[i]!='\0')||(b.str[i]!='\0'); ){
 		if(a.str[i]>b.str[i]){
 			return 1;
 		}else if(a.str[i]<b.str[i]){
 			return -1;
 		}else if(a.str[i]=b.str[i]){
-			return 0;
+			i++;
 		}
 	}
 }
@@ -36,6 +36,7 @@ void strSort(STRING *a, int n){
 main(){
 	STRING a[5];
 	for(int i=0; i<5; i++){
+		printf("¿é¤J²Ä %d ­Ó¦r¦ê¡G",(i+1));
 		scanf("%s", a[i].str);
 	}
 	strSort(a,5);

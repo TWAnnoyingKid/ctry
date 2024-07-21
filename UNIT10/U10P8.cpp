@@ -7,13 +7,13 @@ struct string{
 typedef struct string STRING;
 
 int strComp(STRING a, STRING b){
-	for(int i=0; (a.str[i]!='\0')||(b.str[i]!='\0'); i++){
+	for(int i=0; (a.str[i]!='\0')||(b.str[i]!='\0');){
 		if(a.str[i]>b.str[i]){
 			return 1;
 		}else if(a.str[i]<b.str[i]){
 			return -1;
 		}else if(a.str[i]==b.str[i]){
-			return 0;
+			i++;
 		}
 	}
 }

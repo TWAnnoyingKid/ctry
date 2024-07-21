@@ -9,24 +9,25 @@ struct parabola{
 	float a, b, c; //y=ax^2+bx+c
 };
 
-struct line LN;
+typedef struct line LN;
 typedef struct parabola PA;
 
 void peakPoint(PA P){
 	float M = (P.b/(2*P.a));
 	float N = ((4*P.a*P.c)-(P.b*P.b))/(4*P.a);
-	printf("(%f,%f)",-M,N); //2(X+3/4)^2-1/8
+	printf("拋物線頂點座標為(%.2f,%.2f)",-M,N); //2(X+3/4)^2-1/8
 }
 
 void LN2LN(LN L1, LN L2){
+	printf("\n兩直線關係為");
 	if((L1.a/L2.a) == (L1.b/L2.b)){
 		if((L1.a/L2.a) == (L1.c/L2.c)){
-			printf("\n重合\n");
+			printf(" 重合\n");
 		}else{
-			printf("\n平行\n");
+			printf(" 平行\n");
 		}
 	}else{
-		printf("\n相交\n");
+		printf(" 相交\n");
 	}
 	float delta= ((L1.a*L2.b)-(L1.b*L2.a));
 	float deltaX= ((L1.c*L2.b)-(L1.b*L2.c));
@@ -39,12 +40,13 @@ void LN2PA(LN L, PA P){
 	o = P.a;
 	s = P.b-((L.c-L.a)/L.b);
 	t = P.c;
+	printf("\n直線A與拋物線關係為 ");
 	if(((s*s)-(4*o*t)) == 0){
-		printf("\n相切\n");
+		printf(" 相切\n");
 	}else if(((s*s)-(4*o*t)) > 0){
-		printf("\n相交\n");
+		printf(" 相交\n");
 	}else{
-		printf("\n相離\n");
+		printf(" 相離\n");
 	}
 }
 

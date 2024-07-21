@@ -7,21 +7,22 @@ struct point{
 };
 typedef struct point PT;
 
-PT origin(PT i){
+PT distant(PT i){
 	i.d =  sqrt(pow((i.x),2) + pow((i.y),2));
 	return i;
 }
 
 main(){
 	float max=0;
-	PT a[5];
+	PT a[5],F;
 	for(int i=0; i<5; i++){
 		printf("輸入第%d個座標：\n",(i+1));
 		scanf("%f%f",&a[i].x,&a[i].y);
-		a[i] = origin(a[i]);
+		a[i] = distant(a[i]);
 		if(a[i].d > max){
 			max = a[i].d;
+			F = a[i];
 		}
 	}
-	printf("dMax = %f", max);
+	printf("dMax = (%.2f , %.2f)", F.x, F.y);
 }
