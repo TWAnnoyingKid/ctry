@@ -47,12 +47,14 @@ main(){
 	int list[MAX_SIZE];
 	printf("輸入要生成幾個數字：");
 	scanf("%d", &n);
-	printf("輸入要搜尋的數字："); 
-	scanf("%d", &searchnum);
+	
 	for(i=0; i<n; i++){
 		list[i] = rand()%1000;
 		printf("%d ",list[i]);
 	}
+	printf("輸入要搜尋的數字："); 
+	scanf("%d", &searchnum);
+	
 	sort(list, n);
 	printf("\n\nSorted array：\n");
 	for(i=0; i<n; i++){

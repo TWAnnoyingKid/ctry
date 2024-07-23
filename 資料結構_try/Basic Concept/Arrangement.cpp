@@ -23,6 +23,6 @@ void perm(char *list, int i, int n){
 }
 main(){
 	char list[]={'a','b','c','d','e'};
-	perm(list, 0, 4);
-	printf("%d",(sum/5));
+	perm(list, 0, 2);
+	printf("%d",(sum/3));
 }
