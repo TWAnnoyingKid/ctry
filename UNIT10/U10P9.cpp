@@ -7,18 +7,24 @@ struct string{
 typedef struct string STRING;
 
 int strComp(STRING a, STRING b){
-	for(int i=0; (a.str[i]!='\0')||(b.str[i]!='\0'); ){
+	int i;
+	for(i=0; (a.str[i]!='\0')&&(b.str[i]!='\0'); i++){ //當兩個[i]字元皆不為'\0' 
 		if(a.str[i]>b.str[i]){
 			return 1;
 		}else if(a.str[i]<b.str[i]){
 			return -1;
-		}else if(a.str[i]=b.str[i]){
-			i++;
 		}
+	}
+	if(a.str[i]==b.str[i]){
+		return 0;
+	}else if(a.str[i]<b.str[i]){
+		return -1;
+	}else{
+		return 1;
 	}
 }
 
-void strSort(STRING *a, int n){
+void strSort(STRING *a, int n){ //SELECTION SORT
 	STRING temp, min=a[0];
 	int minp=0;
 	for(int k=0; k<n ; k++, minp=k, min=a[k]){
