@@ -15,7 +15,7 @@ float distance(PT i, PT o){
 main(){
 	float max=0;
 	PT a[5],F;
-	PT o={0,0,0};
+	PT o={0,0};
 	for(int i=0; i<5; i++){
 		printf("輸入第%d個座標：\n",(i+1));
 		scanf("%f%f",&a[i].x,&a[i].y);

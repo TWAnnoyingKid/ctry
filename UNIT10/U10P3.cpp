@@ -21,6 +21,6 @@ main(){
 	printf("輸入c座標：\n");
 	scanf("%f%f",&c.x, &c.y);
 	PT o={0,0,0};
-	printf("\nA至原點 = %f\nB至原點 = %f\nC至原點 = %f",
+	printf("\nA至原點 = %.2f\nB至原點 = %.2f\nC至原點 = %.2f",
 			distance(a,o), distance(b,o), distance(c,o));
 }

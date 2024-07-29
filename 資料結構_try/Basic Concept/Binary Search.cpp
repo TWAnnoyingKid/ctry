@@ -53,13 +53,13 @@ main(){
 		list[i] = rand()%1000;
 		printf("%d ",list[i]);
 	}
-	printf("\n輸入要搜尋的數字："); 
-	scanf("%d", &searchnum);
-	
 	sort(list, n);
-	printf("\n\nSorted array：\n");
+	printf("\nSorted array：\n");
 	for(i=0; i<n; i++){
 		printf("%d ",list[i]);
 	}
+	printf("\n輸入要搜尋的數字："); 
+	scanf("%d", &searchnum);
+	
 	printf("\n\n%d 在第 %d 位", searchnum, binarysearch(list, searchnum, 0, n));
 }

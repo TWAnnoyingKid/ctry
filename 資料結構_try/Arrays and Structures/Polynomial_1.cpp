@@ -33,7 +33,12 @@ float Coef(POLY A, int exp){
 	return 0;
 }
 int LeadExp(POLY A){
-	return A.degree;
+	for(int i=A.degree; i>=0; i--){
+		if(A.coef[i] != 0){
+			A.degree = i;
+			return A.degree;
+		}
+	}
 }
 void PrintPoly(POLY A){
 	for(int i=A.degree; i>=0; i--){
@@ -47,6 +52,13 @@ void PrintPoly(POLY A){
 		}
 	}
 	printf("\n"); 
+}
+
+int MaxDegree(POLY A, POLY B){
+	if(A.degree > B.degree){
+		return A.degree;
+	}
+	return B.degree;
 }
 
 POLY Attach(POLY A, float coef, int exp){
@@ -64,53 +76,50 @@ POLY Attach(POLY A, float coef, int exp){
 POLY Remove(POLY A, int exp){
 	A.coef[exp] = 0;
 	if(exp == A.degree){
-		for(int i=A.degree; i>=0; --i){
-			if(A.coef[i] != 0){
-				A.degree = i;
-				break;
-			}
-		}
+		A.degree = LeadExp(A);
 	}
 	return A;
 }
-POLY SingleMult(POLY A, float coef, int exp){
-	POLY S;
-	S = {0,0,};
-	for(int i=A.degree; i>=0; i--){
-		if(Coef(A, i)){
-			S.coef[(i+exp)] = A.coef[i]*coef;
-		}
-	}
-	S.degree = A.degree + exp;
-	return S;
+int COMPARE(int x, int y){
+	if(x<y)
+		return -1;
+	else if(x==y)
+		return 0;
+	else
+		return 1;
 }
 POLY Add(POLY A, POLY B){
-	POLY S;
-	S = Zero();
-	for(int i=0; i<=A.degree||i<=B.degree; i++){
-		S.coef[i] = A.coef[i] + B.coef[i];
-	}
-	if(A.degree > B.degree){
-		S.degree = A.degree;
-	}else{
-		S.degree = B.degree;
-	}
-	return S;
-}
-
-POLY Mult(POLY A, POLY B){
-	POLY S;
-	S = Zero();
-	for(int i=0; i<=B.degree; i++){
-		if(i==0){
-			S = SingleMult(A, B.coef[i], i);
-		}else{
-			S = Add(S, SingleMult(A, B.coef[i], i));
+	POLY D = {0,0,};
+	while (!IsZero(A) && !IsZero(B)) {
+		switch (COMPARE(LeadExp(A), LeadExp(B))){
+			case -1:
+				D = Attach(D, Coef(B, LeadExp(B)), LeadExp(B));
+				B = Remove(B, LeadExp(B));
+				break;
+			case 0:
+				int sum ;
+				sum = Coef(A, LeadExp(A)) + Coef(B, LeadExp(B));
+				if (sum == 0)
+					D = Attach(D, sum, LeadExp(A));
+				A = Remove(A, LeadExp(A));
+				B = Remove(B, LeadExp(B));
+				break;
+			case 1:
+				D = Attach(D, Coef(A, LeadExp(A)), LeadExp(A));
+				A = Remove(A, LeadExp(A));
+				break;
 		}
 	}
-	return S;
 }
-
+//POLY Add(POLY A, POLY B){
+//	POLY S={0,0,};
+//	for(int i=0; i<=A.degree||i<=B.degree; i++){
+//		S.coef[i] = A.coef[i] + B.coef[i];
+//		printf("%.0f \n",B.coef[i]);
+//	}
+//	S.degree = MaxDegree(A,B);
+//	return S;
+//}
 main(){
 	POLY A;
 	A = Zero();
@@ -119,48 +128,24 @@ main(){
 	}else{
 		printf("A不是0多項式\nA是%d次多項式, 最高係數為%.0f\n\n", LeadExp(A),Coef(A, LeadExp(A))); 
 	}
-	A.degree = 3;
+	A.degree = 2;
 	A.coef[0] = 4;
 	A.coef[1] = 3;
 	A.coef[2] = 2;
-	A.coef[3] = 1;
 	if(IsZero(A)){
 		printf("是0多項式\n\n"); 
 	}else{
 		printf("不是0多項式\nA是%d次多項式, 最高係數為%.0f\n\n", LeadExp(A),Coef(A, LeadExp(A))); 
 	}
-	POLY B;
-	B = Zero();
-	B.degree = 2;
-	B.coef[0] = 3;
-	B.coef[1] = 2;
-	B.coef[2] = 1;
 	PrintPoly(A);
-	PrintPoly(B);
 	printf("\n");
-	A=Mult(A, B);
-	PrintPoly(A);
-	printf("A是%d次多項式, 最高係數為%.0f\n\n", LeadExp(A),Coef(A, LeadExp(A))); 
 	
-	A = Attach(A,2,7);
-	PrintPoly(A);
-	printf("A是%d次多項式, 最高係數為%.0f\n\n", LeadExp(A),Coef(A, LeadExp(A)));
-	
-	A = Remove(A,7);
+	A = Attach(A,2,3);
 	PrintPoly(A);
 	printf("A是%d次多項式, 最高係數為%.0f\n\n", LeadExp(A),Coef(A, LeadExp(A)));
 	
 	A = Remove(A,3);
-	PrintPoly(A);
-	printf("A是%d次多項式, 最高係數為%.0f\n\n", LeadExp(A),Coef(A, LeadExp(A)));
-	A = Remove(A,5);
-	A = Remove(A,4);
 	A = Remove(A,2);
-	A = Remove(A,1);
-	PrintPoly(A);
-	printf("A是%d次多項式, 最高係數為%.0f\n\n", LeadExp(A),Coef(A, LeadExp(A)));
-	
-	A = Add(A, B);
 	PrintPoly(A);
 	printf("A是%d次多項式, 最高係數為%.0f\n\n", LeadExp(A),Coef(A, LeadExp(A)));
 }
