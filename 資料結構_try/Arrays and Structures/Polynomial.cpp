@@ -39,7 +39,7 @@ void PrintPoly(POLY A){
 	for(int i=A.degree; i>=0; i--){
 		if(Coef(A, i) != 0){
 			if(i!=0){
-				printf("%.0fx^%d ",A.coef[i],i);
+				printf("%.0fx^%d + ",A.coef[i],i);
 			}else{
 				printf("%.0f ",A.coef[i]);
 			}
@@ -75,7 +75,7 @@ POLY Remove(POLY A, int exp){
 }
 POLY SingleMult(POLY A, float coef, int exp){
 	POLY S;
-	S = {0,0,};
+	S = {0,0};
 	for(int i=A.degree; i>=0; i--){
 		if(Coef(A, i)){
 			S.coef[(i+exp)] = A.coef[i]*coef;

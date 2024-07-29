@@ -47,8 +47,11 @@ main(){
 	Push(30);
 	Pop(); 
 	Push(40);
+	printf("%d\n",stack[top]);
 	printf("%d\n",Pop());
+	printf("%d\n",stack[top]);
 	printf("%d\n",Pop());
+	printf("%d\n",stack[top]);
 	printf("%d\n",Pop());
 	Pop(); 
 }

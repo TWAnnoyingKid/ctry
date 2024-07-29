@@ -44,41 +44,67 @@ int Pop(){
 	return StackEmpty();
 }
 
-char getToken(char *symbol,int*n){
-	*symbol = expr[(*n)++];
-	switch(*symbol){
-		case'(' : return 'Lparen';
-		case')' : return 'Rparen';
-		case'+' : return 'Plus';
-		case'-' : return 'Minus';
-		case'*' : return 'Times';
-		case'/' : return 'Devide';
-		case'%' : return 'Mod';
-		case' ' : return 'Eos';
-		default : return 'Operand';
-	}
-}
-
-void Postfix(void){
-	char *symbol;
-	precedence token;
-	int n=0, top=0;
-	stack[0] = eos;
-	for(token = getToken(&symbol, &n); token != Eos; token = getToken(&symbol, &n)){
-		if(token == 'Operand'){
-			printf("%c", symbol);
-		}else if(token == 'Rparen'){
-			while(stack[top] != 'Lparen'){
-				printf("%c", Pop());
-			} 
-			Pop();
-		}
+char getToken(char symbol){
+	switch(symbol){
+		case'(' : return '(';
+		case')' : return ')';
+		case'+' : return '+';
+		case'-' : return '-';
+		case'*' : return '*';
+		case'/' : return '/';
+		case'%' : return '%';
+		case'\0' : return '0';
+		default : return 'O';
 	}
 }
 
 main(){
-	char a[80]={'(','1','+','2',')','*','3'}, b[80], token ;
+	char a[160]={'(','1','+','2',')','*','3','+','4','*','5'}, b[80], token ;
+	for(int i=0; getToken(a[i])!='0'; i++){
+		switch(getToken(a[i])){
+			case '(':	Push(a[i]);
+							break;
+							
+			case ')':	while(stack[top] != '('){ //當stack內字元 !='(' 
+							b[++o] = Pop(); //輸出字元至b內 
+						}//結束迴圈後 stack(top)會等於'(' 
+						Pop();//把'(' pop掉 
+						break;
+						
+			case '+': case '-':
+							if(stack[top] == '*' || stack[top] == '/'){ //當 stack[top] == '/' 或 =='*'時 
+								token = stack[top];//設token為 stack[top]
+								Pop();//先pop掉最上面 
+								Push(a[i]);//將 a[i](+或-)push進去 
+								Push(token);//再將 token(*或/)push進去 s
+							}else{//如果不是就直接push進去 
+								Push(a[i]);	
+							}
+							break;	
+						
+			case '*': case '/':	
+							if(stack[top] == '*' || stack[top] == '/'){ //當 stack[top] =='/' 或 =='*'時 
+								b[++o] = Pop();//先將 stack[top] pop去b裡 
+								Push(a[i]);//再將 a[i](*或/)push進去 
+							}else{//如果不是就直接push進去 
+								Push(a[i]);
+							}
+							break;
+							
+			case 'O': 	b[++o] = a[i]; //如果是數字或其他運算元就直接丟進b裡 
+						if(stack[top] == '*' || stack[top] == '/'){//當 stack[top] =='/' 或 =='*'時 
+							b[++o] = Pop();//將 stack[top] pop去b裡 
+						}
+						break;
+						
+			default: printf("err");					
+		}
+	}
+	while(!IsEmpty()){
+		b[++o] = Pop();//當上面for迴圈做完 將stack裡所有東西一個個pop進b裡 
+	}
 	
-	
-	
-} 
+	for(int i=0; b[i]!='\0'; i++){
+		printf("%c" , b[i]);
+	}
+}
