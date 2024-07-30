@@ -60,6 +60,7 @@ char getToken(char symbol){
 
 main(){
 	char a[] = "(1+2)*3+4*5+6", b[80] = { }, token ;
+	//Infix to Postfix
 	for(int i=0; getToken(a[i])!='0'; i++){
 		switch(getToken(a[i])){
 			case '(':	Push(a[i]);
@@ -73,8 +74,7 @@ main(){
 						
 			case '+': case '-':
 							if(stack[top] == '*' || stack[top] == '/'){ //當 stack[top] == '/' 或 =='*'時 
-								token = stack[top];//設token為 stack[top]
-								Pop();//先pop掉最上面 
+								token = Pop();//設token為 stack[top]
 								Push(a[i]);//將 a[i](+或-)push進去 
 								Push(token);//再將 token(*或/)push進去 s
 							}else{//如果不是就直接push進去 
@@ -104,5 +104,31 @@ main(){
 		b[++o] = Pop();//當上面for迴圈做完 將stack裡所有東西一個個pop進b裡 
 	}
 	
-	printf("%s" , b);
+	printf("中置式：");
+	printf("%s\n" , a);
+	
+	printf("後置式：");
+	printf("%s\n" , b);
+	
+	//Postfix Computation
+	int op1=0, op2=0;
+	for(int i=0; getToken(b[i])!='0'; i++){
+		if(getToken(b[i])=='O'){
+			Push(b[i]-'0'); //-'0' 將字元變成整數 因'0'的ASCII值為48 '1'的ASCII值為49...49-48=1 
+		}else{
+			op1 = Pop();
+			op2 = Pop();
+			switch(getToken(b[i])){
+				case '+': 	Push(op1 + op2);
+							break;
+				case '-': 	Push(op1 - op2);
+							break;
+				case '*': 	Push(op1 * op2);
+							break;
+				case '/': 	Push(op1 / op2);
+							break;
+			}
+		}
+	}
+	printf("計算結果為%d", Pop());
 }
