@@ -9,9 +9,9 @@ struct listNode{
 };
 
 main(){
-	listPointer first = NULL; //宣告一個節點 
-	first = (listPointer)malloc(sizeof(*first)); //分配節點的記憶體空間 
-	strcpy(first->data, "BAT"); //將節點資料改成BAT  
-	first->link = NULL; //把節點的連結設為0 
-	printf("%s", first->data);
+	listPointer k = NULL; //宣告一個節點 
+	k = (listPointer)malloc(sizeof(*k)); //分配節點的記憶體空間 
+	strcpy(k->data, "BAT"); //將節點資料改成BAT  
+	k->link = NULL; //把節點的連結設為0 
+	printf("%s", k->data);
 }
